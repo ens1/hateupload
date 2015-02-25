@@ -46,6 +46,8 @@ while True:
         fileget=client.recv(4096)
         datagot=0
         while datagot!=fsize:
+            if datagot=filesize:
+                break
             print("got chunk " + str(len(fileget)))
             datagot=datagot+len(fileget)
             print datagot
