@@ -37,7 +37,7 @@ while True:
         while True:
             print "getting file"
             print len(fileget)
-            if len(fileget)==0:
+            if fileget==":uploaded":
                 print "got file"
                 break
             f.write(fileget)
