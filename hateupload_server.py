@@ -53,7 +53,7 @@ while True:
             f.close()
             break
         if(fsize!=new_file_fsize):
-            s.send("upload failed")
+            client.send("upload failed")
             f.close()
             break
 serversocket.close()
