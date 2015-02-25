@@ -36,7 +36,8 @@ while True:
         fileget=client.recv(4096)
         while True:
             print "getting file"
-            if ":uploaded" in fileget:
+            print len(fileget)
+            if len(fileget)==0:
                 print "got file"
                 break
             f.write(fileget)
