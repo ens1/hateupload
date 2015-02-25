@@ -53,6 +53,7 @@ while True:
             f.close()
             break
         if(fsize!=new_file_fsize):
+            print "upload failed"
             client.send("upload failed")
             f.close()
             break
