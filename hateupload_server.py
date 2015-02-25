@@ -31,10 +31,10 @@ while True:
     print addr
     while True:
         #Get file extension
-        client.send(":filetype")
+        client.sendall(":filetype")
         filetype=client.recv(4096)
         #get file data
-        client.send(":upload")
+        client.sendall(":upload")
         while gotfile==False:
             fileget=client.recv(4096)
             if fileget==":uploaded":
@@ -43,14 +43,14 @@ while True:
             f.write(fileget)
         f.close()
         #Compare file sizes
-        client.send(":fsize")
+        client.sendall(":fsize")
         fsize=client.recv(4096)
         new_file_fsize=str(os.path.getsize(filename))
         if(fsize==new_file_fsize):
             shutil.move(filename, "/var/www/daily/" + filename + "." + filetype)
-            client.send("http://hates.life/daily/" + filename + "." + filetype)
+            client.sendall("http://hates.life/daily/" + filename + "." + filetype)
             break
         if(fsize!=new_file_fsize):
-            client.send(":failed")
+            client.sendall(":failed")
             break
 serversocket.close()

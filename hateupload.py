@@ -16,13 +16,15 @@ fsize=os.path.getsize(sys.argv[1])
 while True:
     data=s.recv(4096)
     if data==":filetype":
-        s.send(sys.argv[1].split(".")[-1])
+        s.sendall(sys.argv[1].split(".")[-1])
     if data==":upload":
-        s.sendall(fileread.read())
-        s.send(":uploaded")
+        print "Uploading now"
+        s.sendallall(fileread.read())
+        s.sendall(":uploaded")
+        print "Uploaded"
 
     if data==":fsize":
-        s.send(str(fsize))
+        s.sendall(str(fsize))
         print fsize    
     if "hates.life" in data:
         print data
