@@ -22,7 +22,6 @@ while True:
         filesent = s.sendall(fileread.read())
         print filesent
         print "Uploaded"
-    s.sendall(":uploaded")
     if data==":fsize":
         s.sendall(str(fsize))
         print fsize    
