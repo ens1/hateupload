@@ -52,7 +52,7 @@ while True:
                 print "Got all the file"
                 gotfile=True
                 break
-            print datagot
+            print str(datagot) + "/" + str(fsize)
             f.write(fileget)
             fileget=client.recv(4096)
         f.close()
