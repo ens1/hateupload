@@ -2,12 +2,12 @@
 
 
 from socket import *
-import random, string, hashlib, os
+import random, string, hashlib, os, shutil
 
 PORT=5511
-HOST=gethostname()
+HOST=''
 BUFFER=4096
-ADDR=(HOST, PORT)
+ADDR=('', PORT)
 serversocket = socket(AF_INET,SOCK_STREAM)
 serversocket.bind(ADDR)
 serversocket.listen(50)
@@ -24,16 +24,13 @@ def randomname():
 
 
 while True:
-    print "Waiting for connection"
     client, addr = serversocket.accept()
-    print addr
     filename=randomname()
     f=open(filename, "wb")
     while True:
         #Get file extension
         client.send(":filetype")
         filetype=client.recv(4096)
-        print filetype
         #get file data
         client.send(":upload")
         while True:
@@ -42,14 +39,13 @@ while True:
             if len(fileget) < 4096:
                 break
         f.close() 
-        print "file got"
         
         #Compare file sizes
         client.send(":fsize")
         fsize=client.recv(4096)
         new_file_fsize=str(os.path.getsize(filename))
         if(fsize==new_file_fsize):
-            os.rename(filename, "/var/www/daily/" + filename + "." + filetype)
+            shutil.move(filename, "/var/www/daily/" + filename + "." + filetype)
             client.send("hates.life/daily/" + filename + "." + filetype)
             break
 serversocket.close()
