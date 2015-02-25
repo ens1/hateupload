@@ -36,6 +36,7 @@ while True:
         while True:
             fileget=client.recv(4096)
             if fileget==":uploaded":
+                print "got file"
                 break
             f.write(fileget)
         
@@ -43,6 +44,8 @@ while True:
         client.send(":fsize")
         fsize=client.recv(4096)
         new_file_fsize=str(os.path.getsize(filename))
+        print "local" + new_file_fsize
+        print "orig" + fsize
         if(fsize==new_file_fsize):
             shutil.move(filename, "/var/www/daily/" + filename + "." + filetype)
             client.send("hates.life/daily/" + filename + "." + filetype)
