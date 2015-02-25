@@ -35,7 +35,7 @@ while True:
         client.send(":upload")
         while True:
             fileget=client.recv(4096)
-            if fileget==":uploaded"
+            if fileget==":uploaded":
                 break
             f.write(fileget)
         
