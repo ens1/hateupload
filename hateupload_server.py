@@ -48,6 +48,7 @@ while True:
         while datagot<fsize:
             print("got chunk " + str(len(fileget)))
             datagot=datagot+len(fileget)
+            print datagot
             f.write(fileget)
             fileget=client.recv(4096)
         f.close()
