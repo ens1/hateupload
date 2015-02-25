@@ -4,8 +4,8 @@
 from socket import *
 import random, string, hashlib, os
 
-PORT=1337
-HOST='localhost'
+PORT=5511
+HOST=socket.gethostname()
 BUFFER=4096
 ADDR=(HOST, PORT)
 serversocket = socket(AF_INET,SOCK_STREAM)
@@ -48,8 +48,6 @@ while True:
         client.send(":fsize")
         fsize=client.recv(4096)
         new_file_fsize=str(os.path.getsize(filename))
-        print fsize
-        print new_file_fsize
         if(fsize==new_file_fsize):
             os.rename(filename, "/var/www/daily/" + filename + "." + filetype)
             client.send("hates.life/daily/" + filename + "." + filetype)
