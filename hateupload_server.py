@@ -33,13 +33,14 @@ while True:
         filetype=client.recv(4096)
         #get file data
         client.send(":upload")
+        fileget=client.recv(4096)
         while True:
-            fileget=client.recv(4096)
             if ":uploaded" in fileget:
                 print "got file"
                 break
             else:
                 f.write(fileget)
+            fielget=client.recv(4096)
         
         #Compare file sizes
         client.send(":fsize")
