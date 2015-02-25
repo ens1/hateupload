@@ -2,7 +2,7 @@
 
 
 from socket import *
-import random, string
+import random, string, hashlib, os
 
 PORT=1337
 HOST='localhost'
@@ -19,8 +19,7 @@ def randomname():
     for i in range(0,7):
         name.append(random.choice(string.ascii_letters + string.digits))
     name=string.join(name, "")
-    return name + ".jpg"
-
+    return name
 
 
 
@@ -31,12 +30,28 @@ while True:
     filename=randomname()
     f=open(filename, "wb")
     while True:
-        data = client.recv(4096)
-        if not data:
+        #Get file extension
+        client.send(":filetype")
+        filetype=client.recv(4096)
+        print filetype
+        #get file data
+        client.send(":upload")
+        while True:
+            fileget=client.recv(4096)
+            f.write(fileget)
+            if len(fileget) < 4096:
+                break
+        f.close() 
+        print "file got"
+        
+        #Compare file sizes
+        client.send(":fsize")
+        fsize=client.recv(4096)
+        new_file_fsize=str(os.path.getsize(filename))
+        print fsize
+        print new_file_fsize
+        if(fsize==new_file_fsize):
+            os.rename(filename, "/var/www/daily/" + filename + "." + filetype)
+            client.send("hates.life/daily/" + filename + "." + filetype)
             break
-        while data:
-            f.write(data)
-            data = client.recv(4096)
-    f.close()
-    client.close()
 serversocket.close()

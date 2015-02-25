@@ -1,18 +1,31 @@
 #!/usr/bin/env python2
 import sys
 from socket import *
+import hashlib, os
 PORT=1337
 HOST="localhost"
 ADDR=(HOST, PORT)
 s=socket(AF_INET, SOCK_STREAM)
 s.connect(ADDR)
 
+
+
 fileread=open(sys.argv[1], "rb")
-breakfile=fileread.read(4096)
+fsize=os.path.getsize(sys.argv[1])
 
-while breakfile:
-    s.send(breakfile)
-    breakfile=fileread.read(4096)
+while True:
+    data=s.recv(4096)
+    print data
+    if data==":filetype":
+        s.send(sys.argv[1].split(".")[-1])
+    if data==":upload":
+        while True:
+            breakfile=fileread.read(4096)
+            if len(breakfile)==0:
+                break
+            s.send(breakfile)
 
-s.close()
+    if data==":fsize":
+        s.send(str(fsize))
 
+    
