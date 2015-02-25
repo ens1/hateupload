@@ -19,7 +19,8 @@ while True:
         s.sendall(sys.argv[1].split(".")[-1])
     if data==":upload":
         print "Uploading now"
-        s.sendall(fileread.read())
+        filesent = s.sendall(fileread.read())
+        print filesent
         print "Uploaded"
     s.sendall(":uploaded")
     if data==":fsize":

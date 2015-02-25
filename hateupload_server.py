@@ -30,6 +30,10 @@ while True:
     gotfile=False
     print addr
     while True:
+        client.sendall(":fsize")
+        fsize=client.recv(4096)
+        if not fsize:
+            client.sendall(":failed")
         #Get file extension
         client.sendall(":filetype")
         filetype=client.recv(4096)
@@ -40,18 +44,14 @@ while True:
         #get file data
         client.sendall(":upload")
         fileget=client.recv(4096)
-        while gotfile==False:
-            if fileget==":uploaded":
-                gotfile=True
-                break
+        datagot=0
+        while datagot<fsize:
             print("got chunk " + str(len(fileget)))
+            datagot=datagot+len(fileget)
             f.write(fileget)
             fileget=client.recv(4096)
         f.close()
         print "got the file"
-        #Compare file sizes
-        client.sendall(":fsize")
-        fsize=client.recv(4096)
         print fsize
         if not fsize:
             client.sendall(":failed:")
