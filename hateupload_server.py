@@ -36,7 +36,7 @@ while True:
         while True:
             fileget=client.recv(4096)
             f.write(fileget)
-            if len(fileget) < 4096:
+            if fileget=":uploaded"
                 break
         
         #Compare file sizes

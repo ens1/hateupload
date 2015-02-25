@@ -21,6 +21,7 @@ while True:
         while True:
             breakfile=fileread.read(4096)
             if len(breakfile)==0:
+                s.send(":uploaded)
                 break
             s.send(breakfile)
 
