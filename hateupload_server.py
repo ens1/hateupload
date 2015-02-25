@@ -33,6 +33,9 @@ while True:
         #Get file extension
         client.sendall(":filetype")
         filetype=client.recv(4096)
+        if not filetype:
+            client.sendall(":failed")
+            break
         #get file data
         client.sendall(":upload")
         while gotfile==False:
@@ -45,6 +48,9 @@ while True:
         #Compare file sizes
         client.sendall(":fsize")
         fsize=client.recv(4096)
+        if not fsize:
+            client.sendall(":failed:")
+            break
         new_file_fsize=str(os.path.getsize(filename))
         if(fsize==new_file_fsize):
             shutil.move(filename, "/var/www/daily/" + filename + "." + filetype)
