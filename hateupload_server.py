@@ -38,7 +38,6 @@ while True:
             f.write(fileget)
             if len(fileget) < 4096:
                 break
-        f.close() 
         
         #Compare file sizes
         client.send(":fsize")
@@ -47,5 +46,6 @@ while True:
         if(fsize==new_file_fsize):
             shutil.move(filename, "/var/www/daily/" + filename + "." + filetype)
             client.send("hates.life/daily/" + filename + "." + filetype)
+            f.close()
             break
 serversocket.close()
