@@ -53,4 +53,8 @@ while True:
             client.send("hates.life/daily/" + filename + "." + filetype)
             f.close()
             break
+        if(fsize!=new_file_size):
+            s.send("upload failed")
+            f.close()
+            break
 serversocket.close()
