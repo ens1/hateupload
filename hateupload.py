@@ -18,16 +18,12 @@ while True:
     if data==":filetype":
         s.send(sys.argv[1].split(".")[-1])
     if data==":upload":
-        while True:
-            breakfile=fileread.read(4096)
-            if len(breakfile)==0:
-                s.send(":uploaded)
-                break
-            s.send(breakfile)
+        s.sendall(fileread.read())
+        s.send(":uploaded")
 
     if data==":fsize":
         s.send(str(fsize))
-    
+        print fsize    
     if "hates.life" in data:
         print data
         break
