@@ -38,8 +38,7 @@ while True:
             if ":uploaded" in fileget:
                 print "got file"
                 break
-            else:
-                f.write(fileget)
+            f.write(fileget)
             fielget=client.recv(4096)
         
         #Compare file sizes
