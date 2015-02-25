@@ -3,7 +3,7 @@ import sys
 from socket import *
 import hashlib, os
 PORT=5511
-HOST="localhost"
+HOST="hates.life"
 ADDR=(HOST, PORT)
 s=socket(AF_INET, SOCK_STREAM)
 s.connect(ADDR)

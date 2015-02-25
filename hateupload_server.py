@@ -28,6 +28,7 @@ while True:
     filename=randomname()
     f=open(filename, "wb")
     gotfile=False
+    print addr
     while True:
         #Get file extension
         client.send(":filetype")
