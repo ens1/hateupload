@@ -20,7 +20,9 @@ while True:
     if data==":upload":
         print "uploading file"
         s.sendall(fileread.read())
+        print "sent all"
         s.send(":uploaded")
+        print "sent :uploaded"
 
     if data==":fsize":
         s.send(str(fsize))
