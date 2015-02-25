@@ -49,6 +49,7 @@ while True:
         print "local" + new_file_fsize
         print "orig" + fsize
         if(fsize==new_file_fsize):
+            print "files match"
             shutil.move(filename, "/var/www/daily/" + filename + "." + filetype)
             client.send("hates.life/daily/" + filename + "." + filetype)
             f.close()
