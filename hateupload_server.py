@@ -5,7 +5,7 @@ from socket import *
 import random, string, hashlib, os
 
 PORT=5511
-HOST=socket.gethostname()
+HOST=gethostname()
 BUFFER=4096
 ADDR=(HOST, PORT)
 serversocket = socket(AF_INET,SOCK_STREAM)
