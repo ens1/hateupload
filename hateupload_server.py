@@ -40,9 +40,13 @@ while True:
         #get file data
         client.sendall(":upload")
         fileget=client.recv(4096)
-        while fileget!=":uploaded":
+        while gotfile==False:
+            if fileget==":uploaded":
+                gotfile=True
+                break
             print("got chunk " + str(len(fileget)))
             f.write(fileget)
+            fileget=client.recv(4096)
         f.close()
         print "got the file"
         #Compare file sizes
