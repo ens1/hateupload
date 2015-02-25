@@ -36,6 +36,7 @@ while True:
         while True:
             fileget=client.recv(4096)
             print "getting file" + str(len(fileget))
+            print fileget[9]
             if fileget==":uploaded":
                 print "got file"
                 break
