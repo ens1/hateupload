@@ -39,11 +39,8 @@ while True:
         print filetype
         #get file data
         client.sendall(":upload")
-        while gotfile==False:
-            fileget=client.recv(4096)
-            if fileget==":uploaded":
-                gotfile=True
-                break
+        fileget=client.recv(4096)
+        while fileget!=":uploaded":
             print("got chunk " + str(len(fileget)))
             f.write(fileget)
         f.close()
