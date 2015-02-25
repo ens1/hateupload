@@ -27,37 +27,29 @@ while True:
     client, addr = serversocket.accept()
     filename=randomname()
     f=open(filename, "wb")
+    gotfile=False
     while True:
         #Get file extension
         client.send(":filetype")
         filetype=client.recv(4096)
         #get file data
         client.send(":upload")
-        fileget=client.recv(4096)
-        while True:
-            print "getting file"
-            print len(fileget)
+        while gotfile==False:
+            fileget=client.recv(4096)
             if fileget==":uploaded":
-                print "got file"
+                gotfile=True
                 break
             f.write(fileget)
-            fielget=client.recv(4096)
-        
+        f.close()
         #Compare file sizes
         client.send(":fsize")
         fsize=client.recv(4096)
         new_file_fsize=str(os.path.getsize(filename))
-        print "local" + new_file_fsize
-        print "orig" + fsize
         if(fsize==new_file_fsize):
-            print "files match"
             shutil.move(filename, "/var/www/daily/" + filename + "." + filetype)
-            client.send("hates.life/daily/" + filename + "." + filetype)
-            f.close()
+            client.send("http://hates.life/daily/" + filename + "." + filetype)
             break
         if(fsize!=new_file_fsize):
-            print "upload failed"
-            client.send("upload failed")
-            f.close()
+            client.send(":failed")
             break
 serversocket.close()

@@ -3,7 +3,7 @@ import sys
 from socket import *
 import hashlib, os
 PORT=5511
-HOST="hates.life"
+HOST="localhost"
 ADDR=(HOST, PORT)
 s=socket(AF_INET, SOCK_STREAM)
 s.connect(ADDR)
@@ -18,12 +18,8 @@ while True:
     if data==":filetype":
         s.send(sys.argv[1].split(".")[-1])
     if data==":upload":
-        print "uploading file"
-        send = s.sendall(fileread.read())
-        print send
-        print "sent all"
+        s.sendall(fileread.read())
         s.send(":uploaded")
-        print "sent :uploaded"
 
     if data==":fsize":
         s.send(str(fsize))
@@ -31,3 +27,5 @@ while True:
     if "hates.life" in data:
         print data
         break
+    if data==":failed":
+        print "Upload failed"
