@@ -45,10 +45,12 @@ while True:
         client.sendall(":upload")
         fileget=client.recv(4096)
         datagot=0
-        while datagot!=fsize:
+        while gotfile=False:
             print("got chunk " + str(len(fileget)))
             datagot=datagot+len(fileget)
             if datagot==fsize:
+                print "Got all the file"
+                gotfile=True
                 break
             print datagot
             f.write(fileget)
