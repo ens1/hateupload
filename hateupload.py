@@ -18,6 +18,7 @@ while True:
     if data==":filetype":
         s.send(sys.argv[1].split(".")[-1])
     if data==":upload":
+        print "uploading file"
         s.sendall(fileread.read())
         s.send(":uploaded")
 
