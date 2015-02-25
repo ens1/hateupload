@@ -2,8 +2,8 @@
 import sys
 from socket import *
 import hashlib, os
-PORT=1337
-HOST="localhost"
+PORT=5511
+HOST="hates.life"
 ADDR=(HOST, PORT)
 s=socket(AF_INET, SOCK_STREAM)
 s.connect(ADDR)
