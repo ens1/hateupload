@@ -48,14 +48,11 @@ while True:
         while gotfile==False:
             print("got chunk " + str(len(fileget)))
             datagot=datagot+len(fileget)
-            if datagot==fsize:
-                print "Got all the file"
-                gotfile=True
-                break
             print str(datagot) + "/" + str(fsize)
             f.write(fileget)
             if datagot==fsize:
                 print "Got the whole file"
+                s.sendall("Got it all")
                 gotfile=True
                 break
             else:
