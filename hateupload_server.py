@@ -34,6 +34,7 @@ while True:
         fsize=client.recv(4096)
         if not fsize:
             client.sendall(":failed")
+        fsize=int(fsize)
         #Get file extension
         client.sendall(":filetype")
         filetype=client.recv(4096)
@@ -51,7 +52,7 @@ while True:
             print str(datagot) + "/" + str(fsize)
             print str(fsize-datagot) + "left"
             f.write(fileget)
-            if datagot==fsize:
+            if datagot==int(fsize):
                 print "Got the whole file"
                 s.sendall("Got it all")
                 gotfile=True
@@ -64,7 +65,7 @@ while True:
         if not fsize:
             client.sendall(":failed:")
             break
-        new_file_fsize=str(os.path.getsize(filename))
+        new_file_fsize=os.path.getsize(filename)
         if(fsize==new_file_fsize):
             shutil.move(filename, "/var/www/daily/" + filename + "." + filetype)
             client.sendall("http://hates.life/daily/" + filename + "." + filetype)
