@@ -41,7 +41,6 @@ while True:
         if not filetype:
             client.sendall(":failed")
             break
-        print filetype
         #get file data
         client.sendall(":upload")
         fileget=client.recv(4096)
@@ -50,7 +49,7 @@ while True:
             datagot=datagot+len(fileget)
             f.write(fileget)
             if datagot==fsize:
-                s.sendall(":goodupload")
+                client.sendall(":goodupload")
                 gotfile=True
                 break
             else:
