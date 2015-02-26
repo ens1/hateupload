@@ -20,11 +20,10 @@ while True:
     if data==":upload":
         print "Uploading now"
         filesent = s.sendall(fileread.read())
-        print filesent
+    if data==":goodupload":
         print "Uploaded"
     if data==":fsize":
         s.sendall(str(fsize))
-        print fsize    
     if "hates.life" in data:
         print data
         break

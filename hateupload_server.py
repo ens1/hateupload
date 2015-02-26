@@ -47,21 +47,15 @@ while True:
         fileget=client.recv(4096)
         datagot=0
         while gotfile==False:
-            print("got chunk " + str(len(fileget)))
             datagot=datagot+len(fileget)
-            print str(datagot) + "/" + str(fsize)
-            print str(fsize-datagot) + "left"
             f.write(fileget)
-            if datagot==int(fsize):
-                print "Got the whole file"
-                s.sendall("Got it all")
+            if datagot==fsize:
+                s.sendall(":goodupload")
                 gotfile=True
                 break
             else:
                 fileget=client.recv(4096)
         f.close()
-        print "got the file"
-        print fsize
         if not fsize:
             client.sendall(":failed:")
             break
