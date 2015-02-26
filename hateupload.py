@@ -29,4 +29,3 @@ while True:
         break
     if data==":failed":
         print "Upload failed"
-    print data
