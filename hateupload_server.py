@@ -54,7 +54,12 @@ while True:
                 break
             print str(datagot) + "/" + str(fsize)
             f.write(fileget)
-            fileget=client.recv(4096)
+            if datagot==fsize:
+                print "Got the whole file"
+                gotfile=True
+                break
+            else:
+                fileget=client.recv(4096)
         f.close()
         print "got the file"
         print fsize
